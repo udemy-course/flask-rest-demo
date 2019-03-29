@@ -1,4 +1,4 @@
-from restdemo.app import db
+from restdemo import db
 
 
 class User(db.Model):

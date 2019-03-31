@@ -24,6 +24,9 @@ class User(Resource):
         'password', type=min_length_str(5), required=True,
         help='{error_msg}'
     )
+    parser.add_argument(
+        'email', type=str, required=True, help='required email'
+    )
 
     def get(self, username):
         """
@@ -46,8 +49,9 @@ class User(Resource):
             return {'message': 'user already exist'}
         user = UserModel(
             username=username,
-            password_hash=data['password']
+            email=data['email']
         )
+        user.set_password(data['password'])
         db.session.add(user)
         db.session.commit()
         return user.as_dict(), 201

@@ -8,15 +8,13 @@ db = SQLAlchemy()
 
 from restdemo.resource.user import User, UserList
 from restdemo.resource.hello import Helloworld
-
+from restdemo.config import Config
 
 def create_app():
 
     app = Flask(__name__)
     api = Api(app)
-    #app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///demo.db"
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost:3306/demo'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config.from_object(Config)
     db.init_app(app)
     migrate = Migrate(app, db)
 

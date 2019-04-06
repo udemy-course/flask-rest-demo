@@ -2,7 +2,6 @@ from flask_restful import Resource, reqparse
 from flask import request, current_app
 from flask_jwt import jwt_required
 
-from restdemo import db
 from restdemo.model.user import User as UserModel
 
 
@@ -34,9 +33,7 @@ class User(Resource):
         """
         get user detail information
         """
-        user = db.session.query(UserModel).filter(
-            UserModel.username == username
-        ).first()
+        user = UserModel.get_by_username(username)
         if user:
             return user.as_dict()
         return {'message': 'user not found'}, 404
@@ -44,9 +41,7 @@ class User(Resource):
     def post(self, username):
         """ create a user"""
         data = User.parser.parse_args()
-        user = db.session.query(UserModel).filter(
-            UserModel.username == username
-        ).first()
+        user = UserModel.get_by_username(username)
         if user:
             return {'message': 'user already exist'}
         user = UserModel(
@@ -54,31 +49,25 @@ class User(Resource):
             email=data['email']
         )
         user.set_password(data['password'])
-        db.session.add(user)
-        db.session.commit()
+        user.add()
         return user.as_dict(), 201
     
     def delete(self, username):
         """delete user"""
-        user = db.session.query(UserModel).filter(
-            UserModel.username == username
-        ).first()
+        user = UserModel.get_by_username(username)
         if user:
-            db.session.delete(user)
-            db.session.commit()
+            user.delete()
             return {'message': 'user deleted'}
         else:
             return {'message': 'user not found'}, 204
     
     def put(self, username):
         """update user"""
-        user = db.session.query(UserModel).filter(
-            UserModel.username == username
-        ).first()
+        user = UserModel.get_by_username(username)
         if user:
             data = User.parser.parse_args()
             user.password_hash = data['password']
-            db.session.commit()
+            user.update()
             return user.as_dict()
         else:
             return {'message': "user not found"}, 204    
@@ -88,5 +77,5 @@ class UserList(Resource):
 
     @jwt_required()
     def get(self):
-        users = db.session.query(UserModel).all()
+        users = UserModel.get_user_list()
         return [u.as_dict() for u in users]

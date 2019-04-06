@@ -26,5 +26,4 @@ def create_app():
     api.add_resource(Helloworld, '/')
     api.add_resource(User, '/user/<string:username>')
     api.add_resource(UserList, '/users')
-    #api.add_resource(Login, '/auth/login')
     return app

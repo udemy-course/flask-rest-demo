@@ -7,6 +7,7 @@ from flask_jwt import JWT
 db = SQLAlchemy()
 
 from restdemo.model.user import User as UserModel
+from restdemo.model.tweet import Tweet
 from restdemo.resource.user import User, UserList
 from restdemo.resource.hello import Helloworld
 from restdemo.config import Config

@@ -2,9 +2,10 @@
 from sqlalchemy import ForeignKey, func
 
 from restdemo import db
+from restdemo.model.base import Base
 
 
-class Tweet(db.Model):
+class Tweet(Base):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, ForeignKey('user.id'))
@@ -15,10 +16,6 @@ class Tweet(db.Model):
         return "user_id={}, tweet={}".format(
             self.user_id, self.body
         )
-
-    def add(self):
-        db.session.add(self)
-        db.session.commit()
 
     def as_dict(self):
        t = {c.name: getattr(self, c.name) for c in self.__table__.columns}

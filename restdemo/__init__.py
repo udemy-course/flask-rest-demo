@@ -7,9 +7,9 @@ from flask_jwt import JWT
 db = SQLAlchemy()
 
 from restdemo.model.user import User as UserModel
-from restdemo.model.tweet import Tweet
 from restdemo.resource.user import User, UserList
 from restdemo.resource.hello import Helloworld
+from restdemo.resource.tweet import Tweet
 from restdemo.config import Config
 
 jwt = JWT(None, UserModel.authenticate, UserModel.identity)
@@ -27,4 +27,5 @@ def create_app():
     api.add_resource(Helloworld, '/')
     api.add_resource(User, '/user/<string:username>')
     api.add_resource(UserList, '/users')
+    api.add_resource(Tweet, '/tweet/<string:username>')
     return app

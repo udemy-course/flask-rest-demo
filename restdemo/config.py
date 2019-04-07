@@ -8,4 +8,4 @@ class Config:
     SECRET_KEY = "flask123"
     JWT_EXPIRATION_DELTA = timedelta(seconds=300)
     JWT_AUTH_URL_RULE = '/auth/login'
-    JWT_AUTH_HEADER_PREFIX = 'FALSK'
+    JWT_AUTH_HEADER_PREFIX = 'FLASK'

@@ -15,3 +15,12 @@ class Tweet(db.Model):
         return "user_id={}, tweet={}".format(
             self.user_id, self.body
         )
+
+    def add(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def as_dict(self):
+       t = {c.name: getattr(self, c.name) for c in self.__table__.columns}
+       t['created_at'] = t['created_at'].isoformat()
+       return t

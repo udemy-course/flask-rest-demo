@@ -59,18 +59,20 @@ class User(Resource):
             user.delete()
             return {'message': 'user deleted'}
         else:
-            return {'message': 'user not found'}, 204
+            return {'message': 'user not found'}, 404
     
     def put(self, username):
         """update user"""
         user = UserModel.get_by_username(username)
         if user:
             data = User.parser.parse_args()
-            user.password_hash = data['password']
+            # user.password_hash = data['password']
+            user.email = data['email']
+            user.set_password(data['password'])
             user.update()
             return user.as_dict()
         else:
-            return {'message': "user not found"}, 204    
+            return {'message': "user not found"}, 404    
 
 
 class UserList(Resource):

@@ -5,7 +5,7 @@
 install requirements
 
 ```
-$ pip install requirements.txt
+$ pip install -r requirements.txt
 ```
 
 set database url and app
@@ -46,3 +46,30 @@ $ python -m unittest discover
 
 ## Production
 
+install requirements
+
+```
+$ pip install -r requirements.txt
+```
+
+set database url and app
+
+```
+$ export DATABASE_URL=mysql+pymysql://root:root@localhost:3306/demo
+$ export FLASK_APP="restdemo:create_app()"
+```
+
+inital database tables
+
+```
+$ flask db init
+$ flask db migrate
+$ flask db upgrade
+```
+
+run the application
+
+```
+$ pip install gunicorn
+$ gunicorn -w 4 --bind=0.0.0.0:8000 restdemo.wsgi:application
+```

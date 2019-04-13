@@ -1,7 +1,3 @@
-from datetime import datetime, timedelta
-
-import jwt
-from flask import current_app
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 
@@ -28,13 +24,13 @@ class User(Base):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-    
+
     @staticmethod
     def get_by_username(username):
         return db.session.query(User).filter(
             User.username == username
         ).first()
-    
+
     @staticmethod
     def get_by_id(user_id):
         return db.session.query(User).filter(

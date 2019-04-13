@@ -1,5 +1,4 @@
 from flask_restful import Resource, reqparse
-from flask import request, current_app
 from flask_jwt import jwt_required
 
 from restdemo.model.user import User as UserModel
@@ -51,7 +50,7 @@ class User(Resource):
         user.set_password(data['password'])
         user.add()
         return user.as_dict(), 201
-    
+
     def delete(self, username):
         """delete user"""
         user = UserModel.get_by_username(username)
@@ -60,7 +59,7 @@ class User(Resource):
             return {'message': 'user deleted'}
         else:
             return {'message': 'user not found'}, 404
-    
+
     def put(self, username):
         """update user"""
         user = UserModel.get_by_username(username)
@@ -72,7 +71,7 @@ class User(Resource):
             user.update()
             return user.as_dict()
         else:
-            return {'message': "user not found"}, 404    
+            return {'message': "user not found"}, 404
 
 
 class UserList(Resource):

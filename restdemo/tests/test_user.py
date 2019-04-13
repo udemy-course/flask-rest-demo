@@ -16,7 +16,7 @@ class TestUser(unittest.TestCase):
         }
         with self.app.app_context():
             db.create_all()
-    
+
     def tearDown(self):
         with self.app.app_context():
             db.session.remove()
@@ -76,7 +76,7 @@ class TestUser(unittest.TestCase):
         res = self.client().delete(url)
         res_data = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 404)
-        self.assertEqual(res_data, {'message': 'user not found'})  
+        self.assertEqual(res_data, {'message': 'user not found'})
 
     def test_user_update(self):
         url = '/user/{}'.format(self.user_data['username'])
@@ -89,12 +89,12 @@ class TestUser(unittest.TestCase):
             data={
                 'password': 'newpassword',
                 'email': 'newemail@new.com'
-                }
-            )
+            }
+        )
         res_data = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res_data['email'], 'newemail@new.com')
-    
+
     def test_user_update_not_exist(self):
         url = '/user/{}'.format(self.user_data['username'])
         res = self.client().put(
@@ -102,8 +102,8 @@ class TestUser(unittest.TestCase):
             data={
                 'password': 'newpassword',
                 'email': 'newemail@new.com'
-                }
-            )
+            }
+        )
         res_data = json.loads(res.get_data(as_text=True))
         self.assertEqual(res.status_code, 404)
-        self.assertEqual(res_data, {'message': 'user not found'})  
+        self.assertEqual(res_data, {'message': 'user not found'})

@@ -13,6 +13,7 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'flask123')
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
+
 class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
 

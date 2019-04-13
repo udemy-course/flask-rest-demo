@@ -1,12 +1,10 @@
-import unittest
 import json
 
-from restdemo import create_app, db
 from restdemo.tests.base import TestBase
 
 
 class TestLogin(TestBase):
-    
+
     def test_login(self):
         url = '/user/{}'.format(self.user_data['username'])
         self.client().post(
@@ -43,4 +41,3 @@ class TestLogin(TestBase):
             "status_code": 401
         }
         self.assertEqual(res_data, data)
-   

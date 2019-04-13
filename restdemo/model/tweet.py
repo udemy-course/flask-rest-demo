@@ -18,6 +18,6 @@ class Tweet(Base):
         )
 
     def as_dict(self):
-       t = {c.name: getattr(self, c.name) for c in self.__table__.columns}
-       t['created_at'] = t['created_at'].isoformat()
-       return t
+        t = {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        t['created_at'] = t['created_at'].isoformat()
+        return t

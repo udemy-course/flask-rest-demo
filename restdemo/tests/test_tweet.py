@@ -1,7 +1,5 @@
-import unittest
 import json
 
-from restdemo import create_app, db
 from restdemo.tests.base import TestBase
 
 

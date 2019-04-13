@@ -15,7 +15,7 @@ class TestBase(unittest.TestCase):
         }
         with self.app.app_context():
             db.create_all()
-    
+
     def tearDown(self):
         with self.app.app_context():
             db.session.remove()

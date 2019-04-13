@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_jwt import JWT
 
 db = SQLAlchemy()
+migrate = Migrate()
 
 from restdemo.model.user import User as UserModel
 from restdemo.resource.user import User, UserList
@@ -21,7 +22,7 @@ def create_app(config_name='development'):
     api = Api(app)
     app.config.from_object(app_config[config_name])
     db.init_app(app)
-    migrate = Migrate(app, db)
+    migrate.init_app(app, db)
     jwt.init_app(app)
 
     api.add_resource(Helloworld, '/')
